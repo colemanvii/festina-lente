@@ -3,513 +3,223 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <meta name="description" content="Festina lente — calm, heat, clarity." />
-  <title>FESTINA LENTE</title>
-
+  <title>Festina Lente — Archive</title>
+  <meta name="description" content="A quiet archive." />
   <style>
-    :root{
-      --bg:#0d0b08;
-      --panel:#17130e;
-      --ink:#e9e1d6;
-      --muted:#bfb2a2;
-      --line:rgba(233,225,214,.16);
-      --accent:#d2a25a;         /* heat */
-      --glow:rgba(210,162,90,.12);
-      --shadow:rgba(0,0,0,.58);
-
-      --mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
-      --serif: ui-serif, "Iowan Old Style", "Palatino Linotype", Palatino, Garamond, Georgia, serif;
-
-      --radius:18px;
-      --max:920px;              /* calm: wider reading lane */
-    }
-
-    *{ box-sizing:border-box; }
-    html,body{ height:100%; }
+    :root { color-scheme: light; }
     body{
-      margin:0;
-      color:var(--ink);
-      font-family:var(--serif);
-      letter-spacing:.2px;
-      overflow-x:hidden;
-
-      background:
-        radial-gradient(1200px 700px at 50% 10%, rgba(210,162,90,.10), transparent 60%),
-        radial-gradient(900px 600px at 72% 72%, rgba(255,255,255,.05), transparent 62%),
-        linear-gradient(180deg, rgba(255,255,255,.035), transparent 40%),
-        var(--bg);
+      margin:0; background:#fff; color:#111;
+      font: 18px/1.7 Georgia, "Iowan Old Style", "Times New Roman", serif;
+      -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility;
     }
-
-    /* subtle grain */
-    body:before{
-      content:"";
-      position:fixed; inset:0;
-      background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='140' height='140' filter='url(%23n)' opacity='.18'/%3E%3C/svg%3E");
-      mix-blend-mode:overlay;
-      opacity:.33;
-      pointer-events:none;
-      z-index:-1;
-    }
-
-    a{ color:inherit; text-decoration:none; }
-    a:hover{ color:var(--accent); }
-
-    .wrap{ max-width:var(--max); margin:0 auto; padding:38px 18px 84px; }
-
-    /* ===== Top Bar ===== */
-    .top{
-      display:flex; align-items:center; justify-content:space-between; gap:14px;
-      border:1px solid var(--line);
-      background:linear-gradient(180deg, rgba(255,255,255,.03), transparent);
-      border-radius:var(--radius);
-      padding:10px 12px;
-      box-shadow: 0 18px 55px var(--shadow);
-      position:sticky; top:12px;
-      backdrop-filter: blur(10px);
-      z-index:10;
-    }
-    .brand{ display:flex; align-items:baseline; gap:10px; padding:6px 10px; }
-    .dot{
-      width:6px; height:6px; border-radius:999px;
-      background:var(--accent);
-      box-shadow: 0 0 0 7px var(--glow);
-      display:inline-block; transform:translateY(-2px);
-    }
-    .sig{
-      font-family:var(--mono);
-      letter-spacing:.18em;
-      font-size:12px;
-      text-transform:uppercase;
-      color:var(--muted);
-      white-space:nowrap;
-    }
-
-    .nav{
-      display:flex; align-items:center; gap:10px;
-      font-family:var(--mono);
-      letter-spacing:.12em;
-      text-transform:uppercase;
-      font-size:12px;
-      color:var(--muted);
-      flex-wrap:wrap;
-      justify-content:flex-end;
-    }
-    .nav a{
-      padding:8px 10px;
-      border:1px solid transparent;
-      border-radius:12px;
-    }
-    .nav a:hover{
-      border-color:var(--line);
-      background:rgba(255,255,255,.03);
-    }
-
-    .modes{ display:flex; gap:8px; align-items:center; margin-left:6px; }
-    .modebtn{
-      font-family:var(--mono);
-      font-size:11px;
-      letter-spacing:.16em;
-      text-transform:uppercase;
-      color:var(--muted);
-      background:transparent;
-      border:1px solid var(--line);
-      padding:8px 10px;
-      border-radius:12px;
-      cursor:pointer;
-    }
-    .modebtn:hover{
-      color:var(--ink);
-      border-color:rgba(233,225,214,.28);
-      box-shadow: 0 0 0 8px rgba(210,162,90,.06);
-    }
-
-    /* ===== Hero ===== */
-    .hero{
-      margin-top:24px;
-      border:1px solid var(--line);
-      border-radius:calc(var(--radius) + 6px);
-      background:
-        radial-gradient(1000px 420px at 50% 0%, rgba(210,162,90,.12), transparent 62%),
-        linear-gradient(180deg, rgba(255,255,255,.04), transparent 44%),
-        rgba(23,19,14,.72);
-      box-shadow: 0 30px 120px var(--shadow);
-      overflow:hidden;
-      position:relative;
-    }
-    /* inevitable sweep */
-    .hero:after{
-      content:"";
-      position:absolute; inset:-2px;
-      background: linear-gradient(90deg, transparent, rgba(210,162,90,.14), transparent);
-      transform: translateX(-80%);
-      animation: sweep 9s ease-in-out infinite;
-      pointer-events:none;
-      opacity:.65;
-    }
-    @keyframes sweep{
-      0%{ transform:translateX(-80%); }
-      45%{ transform:translateX(80%); }
-      100%{ transform:translateX(80%); }
-    }
-
-    .heroInner{ padding:52px 22px 34px; }
-
-    .kicker{
-      font-family:var(--mono);
-      text-transform:uppercase;
-      letter-spacing:.22em;
-      color:var(--muted);
-      font-size:12px;
-    }
-
-    /* clarity: strong but not shouting */
+    .wrap{ max-width: 720px; margin: 64px auto; padding: 0 22px; }
+    header{ margin-bottom: 40px; }
     h1{
-      margin:14px 0 10px;
-      font-size:52px;
-      line-height:1.02;
-      letter-spacing:.06em;
-      text-transform:uppercase;
+      margin:0 0 10px 0; font-size: 44px; line-height: 1.05;
+      letter-spacing: -0.02em; font-weight: 600;
     }
-
-    .landingLine{
-      margin:0 0 14px;
-      font-size:18px;
-      line-height:1.7;
-      color:rgba(233,225,214,.92);
-      max-width:62ch;
+    .sub{ margin:0; color:#333; font-size: 18px; }
+    .rule{ margin: 34px 0; border:0; height:1px; background:#e6e6e6; }
+    .meta{ color:#444; font-size: 15px; margin-top: 12px; }
+    .controls{
+      display:flex; gap:10px; flex-wrap:wrap; align-items:center;
+      margin-top: 18px;
     }
-
-    .sub{
-      max-width:60ch;
-      color:var(--muted);
-      font-size:18px;
-      line-height:1.75;  /* calm */
-      margin:0 0 18px;
+    input[type="search"]{
+      flex:1; min-width: 220px;
+      border: 1px solid #ddd; border-radius: 10px;
+      padding: 10px 12px; font: inherit; font-size: 16px;
     }
-
-    .rule{
-      height:1px;
-      background:linear-gradient(90deg, transparent, rgba(233,225,214,.22), transparent);
-      margin:22px 0 22px;
+    select{
+      border: 1px solid #ddd; border-radius: 10px;
+      padding: 10px 12px; font: inherit; font-size: 16px;
+      background:#fff;
     }
-
-    .ctaRow{
-      display:flex; flex-wrap:wrap; gap:10px;
-      align-items:center;
-      margin-top:14px;
+    ul{ list-style:none; padding:0; margin:0; }
+    li{ padding: 18px 0; border-bottom: 1px solid #eee; }
+    a{ color:inherit; text-decoration:none; }
+    a:hover{ text-decoration: underline; text-underline-offset: 3px; }
+    .date{ color:#555; font-size: 14px; margin-bottom: 4px; }
+    .title{ font-size: 22px; line-height: 1.2; font-weight: 600; margin:0; }
+    .excerpt{ margin: 8px 0 0 0; color:#222; }
+    .tagline{ color:#666; font-size: 14px; margin-top: 10px; }
+    footer{ margin-top: 44px; color:#666; font-size: 14px; }
+    .pill{
+      display:inline-block; padding: 2px 10px; border: 1px solid #e6e6e6;
+      border-radius: 999px; margin-left: 8px; font-size: 12px; color:#555;
     }
-
-    .btn{
-      font-family:var(--mono);
-      text-transform:uppercase;
-      letter-spacing:.16em;
-      font-size:12px;
-      padding:12px 14px;
-      border-radius:14px;
-      border:1px solid rgba(233,225,214,.22);
-      background: rgba(255,255,255,.03);
-      color:var(--ink);
-      display:inline-flex; align-items:center; gap:10px;
-      cursor:pointer;
-    }
-    .btn:hover{
-      border-color:rgba(210,162,90,.45);
-      box-shadow: 0 0 0 10px rgba(210,162,90,.08);
-      transform: translateY(-1px);
-      transition: .18s ease;
-    }
-
-    /* heat: ember primary button */
-    .btn.primary{
-      background: linear-gradient(180deg, rgba(210,162,90,.22), rgba(255,255,255,.02));
-      border-color: rgba(210,162,90,.48);
-      box-shadow: 0 0 0 10px rgba(210,162,90,.08);
-    }
-
-    .tiny{
-      font-family:var(--mono);
-      color:var(--muted);
-      font-size:12px;
-      letter-spacing:.08em;
-    }
-
-    /* ===== Sections ===== */
-    section{
-      margin-top:18px;
-      border:1px solid var(--line);
-      border-radius:var(--radius);
-      background: rgba(23,19,14,.65);
-      box-shadow: 0 18px 70px var(--shadow);
-      overflow:hidden;
-    }
-
-    .secHead{
-      display:flex; justify-content:space-between; align-items:baseline;
-      padding:16px 18px;
-      border-bottom:1px dashed rgba(233,225,214,.18);
-    }
-    .secTitle{
-      font-family:var(--mono);
-      text-transform:uppercase;
-      letter-spacing:.22em;
-      font-size:12px;
-      color:var(--muted);
-    }
-    .stamp{
-      font-family:var(--mono);
-      font-size:11px;
-      letter-spacing:.18em;
-      color:rgba(233,225,214,.55);
-      text-transform:uppercase;
-    }
-
-    .body{
-      padding:22px 18px 24px;
-      line-height:1.9;      /* calm */
-      font-size:19px;
-    }
-    .body p{ margin:0 0 16px; }
-    .body p:last-child{ margin-bottom:0; }
-
-    blockquote{
-      margin:18px 0 0;
-      padding:14px 16px;
-      border-left:2px solid rgba(210,162,90,.65);
-      background: rgba(255,255,255,.03);
-      border-radius:12px;
-      color:rgba(233,225,214,.94);
-    }
-
-    .sigline{
-      display:flex; align-items:center; gap:10px;
-      padding-top:14px;
-      border-top:1px solid rgba(233,225,214,.12);
-      margin-top:18px;
-      color:rgba(233,225,214,.70);
-      font-family:var(--mono);
-      font-size:12px;
-      letter-spacing:.14em;
-      text-transform:uppercase;
-    }
-    .pip{
-      width:8px; height:8px; border-radius:999px;
-      background:rgba(210,162,90,.92);
-      box-shadow:0 0 0 8px rgba(210,162,90,.10);
-    }
-
-    footer{
-      margin-top:18px;
-      padding:18px 10px 0;
-      text-align:center;
-      color:rgba(233,225,214,.55);
-      font-family:var(--mono);
-      font-size:11px;
-      letter-spacing:.16em;
-      text-transform:uppercase;
-    }
-
-    .fadeIn{ animation: fade 900ms ease both; }
-    @keyframes fade{ from{opacity:0; transform:translateY(10px);} to{opacity:1; transform:none;} }
-
-    /* ===== Themes ===== */
-    body[data-theme="sepia"]{
-      --bg:#0d0b08; --panel:#17130e; --ink:#e9e1d6; --muted:#bfb2a2;
-      --line:rgba(233,225,214,.16); --accent:#d2a25a; --glow:rgba(210,162,90,.12);
-    }
-    body[data-theme="paper"]{
-      --bg:#0a0a0a; --panel:#121212; --ink:#f2f0ea; --muted:#c7c1b6;
-      --line:rgba(242,240,234,.14); --accent:#c7b07a; --glow:rgba(199,176,122,.10);
-    }
-    body[data-theme="solar"]{
-      --bg:#07080b; --panel:#0f1117; --ink:#e8f0ff; --muted:#b7c6e6;
-      --line:rgba(232,240,255,.13); --accent:#7fd1ff; --glow:rgba(127,209,255,.10);
-    }
-    /* CYBER CRT: calm screen, heat glow, clarity text */
-    body[data-theme="cyber"]{
-      --bg:#040806; --panel:#06110c; --ink:#dcffe9; --muted:#8fe0b6;
-      --line:rgba(220,255,233,.12); --accent:#49f2a2; --glow:rgba(73,242,162,.10);
-      background:
-        radial-gradient(900px 420px at 50% 12%, rgba(73,242,162,.12), transparent 60%),
-        repeating-linear-gradient(0deg, rgba(220,255,233,.035), rgba(220,255,233,.035) 1px, transparent 1px, transparent 3px),
-        var(--bg);
-    }
-    body[data-theme="cyber"] .hero,
-    body[data-theme="cyber"] section,
-    body[data-theme="cyber"] .top{
-      box-shadow: 0 0 0 1px rgba(73,242,162,.10), 0 30px 120px rgba(0,0,0,.65);
-    }
-
-    @media (max-width: 640px){
-      .top{ position:static; }
-      h1{ font-size:40px; letter-spacing:.05em; }
-      .body{ font-size:18px; }
+    @media (prefers-reduced-motion: no-preference){
+      li{ transition: opacity .15s ease; }
     }
   </style>
 </head>
-
-<body data-theme="sepia">
+<body>
   <div class="wrap">
-
-    <div class="top fadeIn">
-      <div class="brand">
-        <span class="dot" aria-hidden="true"></span>
-        <span class="sig">FESTINA LENTE // CALM • HEAT • CLARITY</span>
+    <header>
+      <h1>Festina Lente</h1>
+      <p class="sub">Not a feed. An archive. Quiet as snow, clean as paper before the poem.</p>
+      <div class="controls">
+        <input id="q" type="search" placeholder="Search titles, tags, text…" autocomplete="off" />
+        <select id="sort">
+          <option value="new">Newest first</option>
+          <option value="old">Oldest first</option>
+          <option value="az">A → Z</option>
+          <option value="za">Z → A</option>
+        </select>
       </div>
-
-      <div class="nav" aria-label="Navigation">
-        <a href="#home">[HOME]</a>
-        <a href="#log">[LOG]</a>
-        <a href="#index">[INDEX]</a>
-        <a href="#mail">[MAIL]</a>
-
-        <div class="modes" title="Display system">
-          <button class="modebtn" data-set="cyber">CYBER</button>
-          <button class="modebtn" data-set="sepia">SEPIA</button>
-          <button class="modebtn" data-set="paper">PAPER</button>
-          <button class="modebtn" data-set="solar">SOLAR</button>
-        </div>
-      </div>
-    </div>
-
-    <header id="home" class="hero fadeIn" style="animation-delay:120ms">
-      <div class="heroInner">
-        <div class="kicker">Est. 2026 // Standalone Signal</div>
-        <h1>FESTINA&nbsp;LENTE</h1>
-
-        <p class="landingLine">
-          Calm enough to breathe. Hot enough to move. Clear enough to trust.
-        </p>
-
-        <p class="sub">
-          Make haste slowly. A place beneath urgency—built for presence, craft,
-          and the quiet inevitability of work that lasts.
-        </p>
-
-        <div class="rule"></div>
-
-        <div class="ctaRow">
-          <a class="btn primary" href="#log">Enter the Log <span aria-hidden="true">→</span></a>
-          <button class="btn" id="copyLink">Copy Link <span aria-hidden="true">⧉</span></button>
-          <span class="tiny" id="status">Log Date: <span id="today"></span></span>
-        </div>
-      </div>
+      <div class="meta" id="count"></div>
+      <hr class="rule" />
     </header>
 
-    <section id="log" class="fadeIn" style="animation-delay:220ms">
-      <div class="secHead">
-        <div class="secTitle">Log Entry</div>
-        <div class="stamp" id="stamp"></div>
-      </div>
+    <main>
+      <ul id="list"></ul>
+      <p class="tagline">To add posts: edit the <code>POSTS</code> array in this file.</p>
+    </main>
 
-      <div class="body">
-        <p><strong>All we ever have is now.</strong></p>
-
-        <p>
-          Most of life’s work is learning to live inside it—unburdened by the ghosts of past
-          and future selves. To be present without flinching. To inhabit the moment without
-          reaching for the next one.
-        </p>
-
-        <p>
-          Writing has always been my way back into that quiet center. A way of slowing down the
-          mind until the world comes back into focus. When I write, time loosens its grip. The
-          noise fades. What’s left is a kind of stillness I can hear.
-        </p>
-
-        <p>
-          Painting opens that same door, just differently. With color, breath, and repetition,
-          it pulls me into the same slow realm—what I’ve started calling <em>the long now</em>.
-          A place beneath urgency. A place where attention feels whole again.
-        </p>
-
-        <blockquote>
-          Guard the signal. Move deliberately. Build what lasts.
-        </blockquote>
-
-        <div class="sigline">
-          <span class="pip" aria-hidden="true"></span>
-          <span>Festina lente — make haste slowly</span>
-        </div>
-      </div>
-    </section>
-
-    <section id="index" class="fadeIn" style="animation-delay:320ms">
-      <div class="secHead">
-        <div class="secTitle">Index</div>
-        <div class="stamp">Structure</div>
-      </div>
-
-      <div class="body">
-        <p>
-          <a href="#log">01 — The Long Now</a><br/>
-          <span style="color:var(--muted)">02 — Craft &amp; Presence (add next)</span><br/>
-          <span style="color:var(--muted)">03 — Studio Notes (add next)</span><br/>
-          <span style="color:var(--muted)">04 — Letters (add next)</span>
-        </p>
-
-        <p class="tiny">
-          Keep it small. Keep it true. Let it deepen.
-        </p>
-      </div>
-    </section>
-
-    <section id="mail" class="fadeIn" style="animation-delay:420ms">
-      <div class="secHead">
-        <div class="secTitle">Mail</div>
-        <div class="stamp">Low Noise</div>
-      </div>
-
-      <div class="body">
-        <p>
-          If you want updates, keep it light: one email, occasional dispatches.
-          No cadence promised. Only signal.
-        </p>
-
-        <div class="ctaRow">
-          <!-- Replace the href with your Substack or Buttondown signup URL -->
-          <a class="btn primary" href="#" id="newsletterLink">Join the Dispatch <span aria-hidden="true">→</span></a>
-          <span class="tiny">Human-scale. Quiet.</span>
-        </div>
-      </div>
-    </section>
-
-    <footer class="fadeIn" style="animation-delay:520ms">
-      <div>FESTINA LENTE // CALM • HEAT • CLARITY</div>
+    <footer>
+      <hr class="rule" />
+      <div>© <span id="year"></span> • Stored locally • No platform required</div>
     </footer>
-
   </div>
 
   <script>
-    // Date stamp
-    const d = new Date();
-    const pad = (n)=>String(n).padStart(2,'0');
-    const stamp = `${pad(d.getMonth()+1)}-${pad(d.getDate())}-${d.getFullYear()}`;
-    document.getElementById('today').textContent = stamp;
-    document.getElementById('stamp').textContent = `Log Date: ${stamp}`;
-
-    // Theme buttons
-    const themeMap = { cyber:"cyber", sepia:"sepia", paper:"paper", solar:"solar" };
-    document.querySelectorAll('.modebtn').forEach(btn=>{
-      btn.addEventListener('click', ()=>{
-        const t = btn.dataset.set;
-        document.body.setAttribute('data-theme', themeMap[t] || 'sepia');
-        localStorage.setItem('fl_theme', themeMap[t] || 'sepia');
-      });
-    });
-    const saved = localStorage.getItem('fl_theme');
-    if(saved) document.body.setAttribute('data-theme', saved);
-
-    // Copy link
-    document.getElementById('copyLink').addEventListener('click', async ()=>{
-      try{
-        await navigator.clipboard.writeText(location.href);
-        const el = document.getElementById('status');
-        el.textContent = "Link copied.";
-        setTimeout(()=>{ el.innerHTML = `Log Date: <span id="today">${stamp}</span>`; }, 1200);
-      }catch(e){
-        document.getElementById('status').textContent = "Couldn’t copy—manual copy works.";
+    // 1) ADD/EDIT POSTS HERE.
+    //    - date: "YYYY-MM-DD" (for sorting)
+    //    - slug: used for filename if you create a local HTML per post (optional)
+    //    - url: link to local file or external (optional; if blank, it will open the modal)
+    //    - body: full text (optional; shown in modal)
+    const POSTS = [
+      {
+        title: "A House of My Own",
+        date: "2026-01-06",
+        tags: ["home", "quiet", "own"],
+        slug: "a-house-of-my-own",
+        excerpt: "A place all my own—porch, pillow, purple petunias…",
+        body: `Not a flat. Not an apartment in back. Not a man’s house...`
+      },
+      {
+        title: "The Falling Star",
+        date: "2026-01-05",
+        tags: ["beauty", "wish", "gone"],
+        slug: "the-falling-star",
+        excerpt: "Too burning and too quick to hold…",
+        body: `I saw a star slide down the sky...`
       }
-    });
+    ];
+
+    // --- renderer ---
+    const $list = document.getElementById("list");
+    const $q = document.getElementById("q");
+    const $sort = document.getElementById("sort");
+    const $count = document.getElementById("count");
+
+    const fmt = (d) => {
+      const [y,m,day] = d.split("-").map(Number);
+      const dt = new Date(y, m-1, day);
+      return dt.toLocaleDateString(undefined, { year:"numeric", month:"long", day:"numeric" });
+    };
+
+    function getFiltered(){
+      const term = ($q.value || "").trim().toLowerCase();
+      let items = POSTS.slice();
+
+      // sort
+      const s = $sort.value;
+      if (s === "new") items.sort((a,b)=> (b.date||"").localeCompare(a.date||""));
+      if (s === "old") items.sort((a,b)=> (a.date||"").localeCompare(b.date||""));
+      if (s === "az")  items.sort((a,b)=> (a.title||"").localeCompare(b.title||""));
+      if (s === "za")  items.sort((a,b)=> (b.title||"").localeCompare(a.title||""));
+
+      if (!term) return items;
+
+      return items.filter(p=>{
+        const hay = [
+          p.title, p.excerpt, p.body,
+          (p.tags||[]).join(" ")
+        ].join("\n").toLowerCase();
+        return hay.includes(term);
+      });
+    }
+
+    function render(){
+      const items = getFiltered();
+      $list.innerHTML = "";
+
+      items.forEach(p=>{
+        const li = document.createElement("li");
+        const a = document.createElement("a");
+        a.href = p.url || "#";
+        a.addEventListener("click", (e)=>{
+          if (!p.url) { e.preventDefault(); openModal(p); }
+        });
+
+        const date = document.createElement("div");
+        date.className = "date";
+        date.textContent = p.date ? fmt(p.date) : "";
+
+        const h = document.createElement("p");
+        h.className = "title";
+        h.textContent = p.title || "Untitled";
+
+        if (p.tags && p.tags.length){
+          const pill = document.createElement("span");
+          pill.className = "pill";
+          pill.textContent = p.tags[0];
+          h.appendChild(pill);
+        }
+
+        const ex = document.createElement("p");
+        ex.className = "excerpt";
+        ex.textContent = p.excerpt || "";
+
+        a.appendChild(date);
+        a.appendChild(h);
+        if (p.excerpt) a.appendChild(ex);
+
+        li.appendChild(a);
+        $list.appendChild(li);
+      });
+
+      $count.textContent = `${items.length} post${items.length===1?"":"s"} • stored here`;
+    }
+
+    // --- modal (for inline reading) ---
+    const modal = document.createElement("dialog");
+    modal.style.maxWidth = "760px";
+    modal.style.width = "calc(100% - 24px)";
+    modal.style.border = "1px solid #e6e6e6";
+    modal.style.borderRadius = "16px";
+    modal.style.padding = "18px 18px 22px 18px";
+    modal.style.font = "inherit";
+    modal.innerHTML = `
+      <div style="display:flex; justify-content:space-between; gap:12px; align-items:flex-start;">
+        <div>
+          <div id="mDate" class="date"></div>
+          <div id="mTitle" style="font-size:28px; font-weight:600; line-height:1.15;"></div>
+          <div id="mTags" style="margin-top:10px; color:#666; font-size:14px;"></div>
+        </div>
+        <button id="mClose" style="border:1px solid #ddd; background:#fff; border-radius:999px; padding:8px 12px; font:inherit; cursor:pointer;">Close</button>
+      </div>
+      <hr class="rule" style="margin:18px 0;" />
+      <div id="mBody" style="white-space:pre-wrap;"></div>
+    `;
+    document.body.appendChild(modal);
+
+    function openModal(p){
+      modal.querySelector("#mDate").textContent = p.date ? fmt(p.date) : "";
+      modal.querySelector("#mTitle").textContent = p.title || "Untitled";
+      modal.querySelector("#mTags").textContent = (p.tags && p.tags.length) ? `Tags: ${p.tags.join(", ")}` : "";
+      modal.querySelector("#mBody").textContent = p.body || p.excerpt || "";
+      modal.showModal();
+    }
+    modal.querySelector("#mClose").addEventListener("click", ()=> modal.close());
+    modal.addEventListener("click", (e)=> { if (e.target === modal) modal.close(); });
+
+    // init
+    document.getElementById("year").textContent = new Date().getFullYear();
+    $q.addEventListener("input", render);
+    $sort.addEventListener("change", render);
+    render();
   </script>
 </body>
 </html>
